@@ -16,6 +16,7 @@ export const Admin = () => {
     const [guests, setGuests] = useState<Guest[]>([]);
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
+    const [downloading, setDownloading] = useState(false);
 
     const normalizeText = (text: string) =>
         text
@@ -39,6 +40,9 @@ export const Admin = () => {
     };
 
     const exportPDF = () => {
+
+        setDownloading(true);
+
         const doc = new jsPDF();
 
         let y = 30;
@@ -116,7 +120,13 @@ export const Admin = () => {
         });
 
         doc.save("invitados.pdf");
-    };  
+        const blob = doc.output("blob");
+        const url = URL.createObjectURL(blob);
+        window.open(url);
+        setTimeout(() => {
+            setDownloading(false);
+        }, 1000);
+    };
 
     const exportExcel = () => {
         const formatted = guests.map((g) => ({
@@ -197,8 +207,9 @@ export const Admin = () => {
                     <IconButton onClick={openMenu}>
                         <DownloadIcon
                             sx={{
-                                color: "text.secondary",
-                                "&:hover": { color: "primary.main" },
+                                cursor: "pointer",
+                                color: downloading ? "primary.main" : "text.secondary",
+                                opacity: downloading ? 0.5 : 1,
                             }}
                         />
                     </IconButton>
