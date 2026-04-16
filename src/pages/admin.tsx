@@ -120,9 +120,7 @@ export const Admin = () => {
         });
 
         doc.save("invitados.pdf");
-        const blob = doc.output("blob");
-        const url = URL.createObjectURL(blob);
-        window.open(url);
+       
         setTimeout(() => {
             setDownloading(false);
         }, 1000);
