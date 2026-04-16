@@ -45,6 +45,7 @@ export const Hero = () => {
             >
                 5 SEPTIEMBRE 2026
             </Typography>
+            
         </Box>
     );
 };

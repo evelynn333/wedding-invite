@@ -2,8 +2,33 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const WEDDING_DATE = dayjs("2026-09-05T00:00:00");
+
+const smoothScrollTo = (targetY: number, duration = 1200) => {
+    const startY = window.scrollY;
+    const difference = targetY - startY;
+    const startTime = performance.now();
+
+    const ease = (t: number) =>
+        t < 0.5
+            ? 2 * t * t
+            : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+    const step = (currentTime: number) => {
+        const time = Math.min(1, (currentTime - startTime) / duration);
+        const eased = ease(time);
+
+        window.scrollTo(0, startY + difference * eased);
+
+        if (time < 1) {
+            requestAnimationFrame(step);
+        }
+    };
+
+    requestAnimationFrame(step);
+};
 
 const calculateTimeLeft = () => {
     const now = dayjs();
@@ -17,7 +42,7 @@ const calculateTimeLeft = () => {
     };
 };
 
-export const Countdown = () => {
+export const Countdown = ({ scrollRef }: { scrollRef: React.RefObject<HTMLDivElement> }) => {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
@@ -94,7 +119,38 @@ export const Countdown = () => {
                         </motion.div>
                     </Box>
                 ))}
+
             </Box>
+
+            <motion.div
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: [0.6, 1, 0.6], y: [0, 6, 0] }}
+                transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+                style={{
+                    marginTop: "60px",
+                    cursor: "pointer",
+                }}
+                onClick={() => {
+                    const target = scrollRef.current;
+                    if (!target) return;
+
+                    const y = target.getBoundingClientRect().top + window.scrollY;
+
+                    smoothScrollTo(y, 1600); 
+
+                }}
+            >
+                <KeyboardArrowDownIcon
+                    sx={{
+                        fontSize: 28,
+                        color: "text.secondary",
+                    }}
+                />
+            </motion.div>
         </Box>
     );
 };

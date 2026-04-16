@@ -3,29 +3,31 @@ import { Hero } from "../components/hero";
 import { Countdown } from "../components/countdown";
 import { Location } from "../components/location";
 import { Section } from "../components/section";
-import { Timeline } from "../components/timeline";
 import { Form } from "../components/form";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { Timeline } from "../components/timeline";
 
 function Home() {
+    const nextSectionRef = useRef<HTMLDivElement>(null);
+
     return (
         <Layout>
-            {/* HERO */}
             <Section>
                 <Hero />
-                <Countdown />
+                <Countdown scrollRef={nextSectionRef} />
             </Section>
 
-            {/* SEPARADOR */}
             <Divider />
 
-            {/* LOCATION */}
-            <AnimatedSection>
-                <Section>
-                    <Location />
-                </Section>
-            </AnimatedSection>
+            <div ref={nextSectionRef}>
+                <AnimatedSection>
+                    <Section>
+                        <Location />
+                    </Section>
+                </AnimatedSection>
+            </div>
 
             <Divider />
 
@@ -54,7 +56,7 @@ const AnimatedSection = ({ children }: { children: React.ReactNode }) => (
     <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true }}
     >
         {children}
