@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, IconButton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Guest } from "../types/guest";
@@ -8,8 +8,12 @@ import * as XLSX from "xlsx";
 import DownloadIcon from "@mui/icons-material/Download";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { motion } from "framer-motion";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { Menu, MenuItem } from "@mui/material";
 
 export const Admin = () => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [guests, setGuests] = useState<Guest[]>([]);
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
@@ -35,6 +39,86 @@ export const Admin = () => {
         navigate("/login");
     };
 
+    const exportPDF = () => {
+        const doc = new jsPDF();
+
+        let y = 30;
+
+        // 💎 TÍTULO
+        doc.setFont("times", "normal");
+        doc.setFontSize(20);
+        doc.text("Maricarmen & Juanfran", 105, y, { align: "center" });
+
+        y += 10;
+
+        // ✨ SUBTÍTULO
+        doc.setFontSize(11);
+        doc.text("Lista de invitados", 105, y, { align: "center" });
+
+        y += 8;
+
+        // 🌿 LÍNEA DECORATIVA
+        doc.setDrawColor(180);
+        doc.line(70, y, 140, y);
+
+        y += 12;
+
+        // 🧩 CABECERA
+        doc.setFontSize(10);
+        doc.setTextColor(120);
+
+        const colX = {
+            name: 20,
+            status: 100,
+            companion: 140,
+            allergies: 170,
+        };
+
+        doc.text("Nombre", colX.name, y);
+        doc.text("Estado", colX.status, y);
+        doc.text("Acomp.", colX.companion, y);
+        doc.text("Alergias", colX.allergies, y);
+
+        y += 4;
+
+        // línea header
+        doc.setDrawColor(200);
+        doc.line(20, y, 190, y);
+
+        y += 8;
+
+        // 📝 FILAS
+        doc.setTextColor(0);
+
+        guests.forEach((g) => {
+            const name = `${g.name} ${g.surname}`;
+            const status = g.attending ? "Asiste" : "No";
+            const companion = g.has_companion ? "Sí" : "—";
+            const allergies = g.has_allergies
+                ? g.dietary_restrictions
+                : "—";
+
+            doc.text(name, colX.name, y);
+
+            doc.setTextColor(g.attending ? 40 : 120);
+            doc.text(status, colX.status, y);
+
+            doc.setTextColor(0);
+            doc.text(companion, colX.companion, y);
+            doc.text(allergies, colX.allergies, y);
+
+            y += 8;
+
+            // 📄 salto página
+            if (y > 270) {
+                doc.addPage();
+                y = 30;
+            }
+        });
+
+        doc.save("invitados.pdf");
+    };  
+
     const exportExcel = () => {
         const formatted = guests.map((g) => ({
             Nombre: g.name,
@@ -47,6 +131,14 @@ export const Admin = () => {
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Invitados");
         XLSX.writeFile(wb, "invitados.xlsx");
+    };
+
+    const openMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+        setAnchorEl(null);
     };
 
     useEffect(() => {
@@ -102,14 +194,36 @@ export const Admin = () => {
                 }}
             >
                 {/* Export */}
-                <DownloadIcon
-                    onClick={exportExcel}
-                    sx={{
-                        cursor: "pointer",
-                        color: "text.secondary",
-                        "&:hover": { color: "primary.main" },
-                    }}
-                />
+                <>
+                    <IconButton onClick={openMenu}>
+                        <DownloadIcon
+                            sx={{
+                                color: "text.secondary",
+                                "&:hover": { color: "primary.main" },
+                            }}
+                        />
+                    </IconButton>
+
+                    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
+                        <MenuItem
+                            onClick={() => {
+                                exportExcel();
+                                closeMenu();
+                            }}
+                        >
+                            Excel
+                        </MenuItem>
+
+                        <MenuItem
+                            onClick={() => {
+                                exportPDF();
+                                closeMenu();
+                            }}
+                        >
+                            PDF
+                        </MenuItem>
+                    </Menu>
+                </>
 
                 {/* Título */}
                 <Typography
@@ -202,10 +316,10 @@ export const Admin = () => {
                             color: "text.secondary",
                         }}
                     >
-                        <Typography sx={{ fontWeight:600, textAlign: "center" }}>
+                        <Typography sx={{ fontWeight: 600, textAlign: "center" }}>
                             Nombre
                         </Typography>
-                        <Typography sx={{ fontWeight:600, textAlign: "center" }}>
+                        <Typography sx={{ fontWeight: 600, textAlign: "center" }}>
                             Estado
                         </Typography>
                     </Box>

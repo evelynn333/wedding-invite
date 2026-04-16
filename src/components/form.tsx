@@ -82,33 +82,69 @@ export const Form = () => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
         >
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 3,
-                    "& .MuiInput-underline:before": {
-                        borderBottomColor: "divider",
+                    maxWidth: { xs: "90%", sm: "420px" },
+                    mx: "auto",
+                    "& .MuiInput-underline:after": {
+                        transform: "scaleX(0)",
+                        transition: "transform 0.4s ease",
                     },
+
+                    "& .MuiInputBase-root.Mui-focused .MuiInput-underline:after": {
+                        transform: "scaleX(1)",
+                    },
+                    "& .MuiInputBase-root": {
+                        fontSize: "0.95rem",
+                    },
+
+                    "& .MuiInputLabel-root": {
+                        fontSize: "0.8rem",
+                        letterSpacing: "1px",
+                    },
+
+                    "& .MuiInput-underline:before": {
+                        borderBottomColor: "rgba(0,0,0,0.2)",
+                    },
+
                     "& .MuiInput-underline:hover:before": {
                         borderBottomColor: "primary.main",
                     },
                 }}
             >
+                {/* TÍTULO */}
                 <Typography
                     sx={{
                         fontFamily: "Playfair Display",
                         fontSize: { xs: "1.6rem", md: "2rem" },
                         textAlign: "center",
-                        mb: 4,
+                        mb: 2,
                     }}
                 >
                     Confirma tu asistencia
                 </Typography>
-                {/* Nombre */}
+
+                {/* SUBTÍTULO */}
+                <Typography
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "0.75rem",
+                        letterSpacing: "1.5px",
+                        color: "text.secondary",
+                        mb: 4,
+                    }}
+                >
+                    Nos encantará compartir este día contigo
+                </Typography>
+
+                {/* INPUTS */}
                 <TextField
                     variant="standard"
                     label="Nombre"
@@ -125,7 +161,6 @@ export const Form = () => {
                     fullWidth
                 />
 
-                {/* Asistencia */}
                 <TextField
                     select
                     variant="standard"
@@ -137,21 +172,26 @@ export const Form = () => {
                     <MenuItem value="yes">Sí</MenuItem>
                     <MenuItem value="no">No</MenuItem>
                 </TextField>
+
                 {attending === "yes" && (
-                    <TextField
-                        select
-                        variant="standard"
-                        label="¿Vendrás con acompañante?"
-                        value={companion}
-                        onChange={(e) => setCompanion(e.target.value)}
-                        fullWidth
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
                     >
-                        <MenuItem value="yes">Sí</MenuItem>{" "}
-                        <MenuItem value="no">No</MenuItem>{" "}
-                    </TextField>
+                        <TextField
+                            select
+                            variant="standard"
+                            label="¿Vendrás con acompañante?"
+                            value={companion}
+                            onChange={(e) => setCompanion(e.target.value)}
+                            fullWidth
+                        >
+                            <MenuItem value="yes">Sí</MenuItem>
+                            <MenuItem value="no">No</MenuItem>
+                        </TextField>
+                    </motion.div>
                 )}
 
-                {/* Alergias */}
                 <TextField
                     select
                     variant="standard"
@@ -164,42 +204,59 @@ export const Form = () => {
                     <MenuItem value="no">No</MenuItem>
                 </TextField>
 
-                {/* Campo condicional */}
                 {hasAllergies === "yes" && (
-                    <TextField
-                        variant="standard"
-                        label="Indícanos cuál"
-                        value={diet}
-                        onChange={(e) => setDiet(e.target.value)}
-                        fullWidth
-                        multiline
-                    />
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                    >
+                        <TextField
+                            variant="standard"
+                            label="Indícanos cuál"
+                            value={diet}
+                            onChange={(e) => setDiet(e.target.value)}
+                            fullWidth
+                            multiline
+                        />
+                    </motion.div>
                 )}
 
-                {/* Error elegante */}
+                {/* ERROR */}
                 {error && (
                     <Typography
                         sx={{
                             color: "error.main",
-                            fontSize: "0.85rem",
+                            fontSize: "0.8rem",
                             textAlign: "center",
+                            mt: 1,
                         }}
                     >
                         {error}
                     </Typography>
                 )}
 
-                {/* Botón */}
+                {/* BOTÓN */}
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
                     disabled={loading}
                     sx={{
-                        mt: 2,
+                        mt: 4,
+                        alignSelf: "center",
+                        px: 4,
+                        py: 1.2,
+                        fontSize: "0.75rem",
+                        letterSpacing: "2px",
+                        borderRadius: "30px",
                         backgroundColor: "primary.main",
+                        boxShadow: "none",
+
+                        "&:hover": {
+                            backgroundColor: "primary.dark",
+                            boxShadow: "none",
+                        },
                     }}
                 >
-                    Confirmar
+                    CONFIRMAR
                 </Button>
             </Box>
         </motion.div>

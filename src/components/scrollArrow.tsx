@@ -15,7 +15,7 @@ export const ScrollArrow = ({ targetRef }: Props) => {
 
         const y = target.getBoundingClientRect().top + window.scrollY;
 
-        smoothScrollTo(y - 20, 2000); 
+        smoothScrollTo(y - 20, 1700); 
     };
 
     return (
