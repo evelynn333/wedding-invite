@@ -5,6 +5,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import { theme } from "./theme/theme";
 import "@fontsource/playfair-display";
 import "@fontsource/inter";
+import Router from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
