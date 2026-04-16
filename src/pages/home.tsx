@@ -8,43 +8,48 @@ import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { Timeline } from "../components/timeline";
+import { ScrollArrow } from "../components/scrollArrow";
 
 function Home() {
-    const nextSectionRef = useRef<HTMLDivElement>(null);
 
+    const locationRef = useRef<HTMLDivElement>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLDivElement>(null);
     return (
         <Layout>
             <Section>
                 <Hero />
-                <Countdown scrollRef={nextSectionRef} />
+                <Countdown />
+                <ScrollArrow targetRef={locationRef} />
             </Section>
 
             <Divider />
 
-            <div ref={nextSectionRef}>
-                <AnimatedSection>
-                    <Section>
-                        <Location />
-                    </Section>
-                </AnimatedSection>
+            <div ref={locationRef}>
+                <Section>
+                    <Location />
+                    <ScrollArrow targetRef={timelineRef} />
+                </Section>
             </div>
 
             <Divider />
 
             {/* TIMELINE */}
-            <AnimatedSection>
+            <div ref={timelineRef}>
                 <Section>
                     <Timeline />
+                    <ScrollArrow targetRef={formRef} />
                 </Section>
-            </AnimatedSection>
-
+            </div>
             <Divider />
 
             {/* FORM */}
             <AnimatedSection>
-                <Section>
-                    <Form />
-                </Section>
+                <div ref={formRef}>
+                    <Section>
+                        <Form />
+                    </Section>
+                </div>
             </AnimatedSection>
         </Layout>
     );
