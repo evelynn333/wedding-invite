@@ -9,7 +9,6 @@ import DownloadIcon from "@mui/icons-material/Download";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { motion } from "framer-motion";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import { Menu, MenuItem } from "@mui/material";
 
 export const Admin = () => {
