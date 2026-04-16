@@ -1,7 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { motion } from "framer-motion";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const locations = [
   {
