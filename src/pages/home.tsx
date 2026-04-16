@@ -8,7 +8,7 @@ import { Form } from "../components/form";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 
-function App() {
+function Home() {
     return (
         <Layout>
             {/* HERO */}
@@ -48,7 +48,7 @@ function App() {
     );
 }
 
-export default App;
+export default Home;
 
 const AnimatedSection = ({ children }: { children: React.ReactNode }) => (
     <motion.div
