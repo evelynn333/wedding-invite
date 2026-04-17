@@ -249,10 +249,9 @@ export const Admin = () => {
             >
                 <Box
                     sx={{
-                        position: "relative",
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "space-between",
+                        alignItems: "center",
                         mb: 4,
                     }}
                 >
@@ -288,27 +287,13 @@ export const Admin = () => {
                                 PDF
                             </MenuItem>
                         </Menu>
-                        {/* ➕ ADD */}
-                        <Tooltip title="Añadir" arrow>
-                            <IconButton onClick={() => setOpenModal(true)}>
-                                <AddIcon
-                                    sx={{
-                                        color: "text.secondary",
-                                        "&:hover": { color: "primary.main" },
-                                    }}
-                                />
-                            </IconButton>
-                        </Tooltip>
+
                     </Box>
                     {/* Título */}
                     <Typography
                         sx={{
-                            position: "absolute",
-                            left: "50%",
-                            transform: "translateX(-50%)",
                             fontFamily: "Playfair Display",
                             fontSize: { xs: "1.8rem", md: "2.2rem" },
-                            pointerEvents: "none", // 👈 importante
                         }}
                     >
                         Invitados
@@ -346,10 +331,12 @@ export const Admin = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "left",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                         mb: 4,
                     }}
                 >
+                    {/* 🔍 BUSCADOR */}
                     <TextField
                         variant="standard"
                         placeholder="Buscar"
@@ -358,7 +345,6 @@ export const Admin = () => {
                         sx={{
                             width: "160px",
                             "& .MuiInputBase-input": {
-                                textAlign: "left",
                                 fontSize: "0.85rem",
                             },
                             "& .MuiInput-underline:before": {
@@ -369,6 +355,34 @@ export const Admin = () => {
                             },
                         }}
                     />
+
+                    {/* ➕ AÑADIR (estilo fino) */}
+                    <Box
+                        onClick={() => setOpenModal(true)}
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 0.5,
+                            cursor: "pointer",
+                            color: "text.secondary",
+                            fontSize: "0.8rem",
+                            transition: "0.2s",
+                            "&:hover": {
+                                color: "primary.main",
+                            },
+                            pt: 2,
+                        }}
+                    >
+                        <AddIcon sx={{ fontSize: 16 }} />
+                        <Typography
+                            sx={{
+                                fontSize: "0.8rem",
+                                letterSpacing: "0.5px",
+                            }}
+                        >
+                            Añadir Invitado
+                        </Typography>
+                    </Box>
                 </Box>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

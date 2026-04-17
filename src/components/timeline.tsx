@@ -20,7 +20,7 @@ const events = [
     {
         time: "21:00",
         title: "Fiesta",
-        icon: "/icons/fiesta.png",
+        icon: "/icons/ball.png",
     },
 ];
 
@@ -77,7 +77,7 @@ export const Timeline = () => {
                             <Box
                                 sx={{
                                     position: "absolute",
-                                   left: "calc(50% - 100px)",
+                                    left: "calc(50% - 100px)",
                                     top: "50%",
                                     transform: "translateY(-50%)",
                                     width: "40px",
@@ -94,8 +94,8 @@ export const Timeline = () => {
                                     sx={{
                                         width: "80px",
                                         height: "80px",
-                                        opacity: 0.8,
-                                         mixBlendMode: "multiply",
+                                        opacity: 0.7,
+                                        mixBlendMode: "multiply",
                                     }}
                                 />
                             </Box>
