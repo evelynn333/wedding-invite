@@ -24,13 +24,17 @@ export const ScrollArrow = ({ targetRef }: Props) => {
             style={{
                 cursor: "pointer",
                 outline: "none",
+                WebkitTapHighlightColor: "transparent", // 👈 clave móvil
+                userSelect: "none",
             }}
+            tabIndex={-1} // 👈 evita focus
             animate={{ y: [0, 6, 0], opacity: [0.6, 1, 0.6] }}
             transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
             }}
+
         >
             <Box sx={{ textAlign: "center", mt: 4 }}>
                 <KeyboardArrowDownIcon
