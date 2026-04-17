@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 
 export const Hero = () => {
     return (
@@ -10,7 +11,7 @@ export const Hero = () => {
         >
             {/* 🕊️ Marca de agua */}
             <Box
-                component="img"
+                component={motion.img}
                 src="./icons/couple.png"
                 alt="Pareja"
                 sx={{
@@ -19,7 +20,7 @@ export const Hero = () => {
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                     width: { xs: "400px", md: "500px" },
-                    opacity: 0.10,
+                    opacity: 0.08,
                     zIndex: 0,
                     pointerEvents: "none",
                 }}
