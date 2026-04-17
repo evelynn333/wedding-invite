@@ -19,7 +19,7 @@ export const Hero = () => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    width: { xs: "400px", md: "500px" },
+                    width: { xs: "420px", md: "520px" },
                     opacity: 0.08,
                     zIndex: 0,
                     pointerEvents: "none",
