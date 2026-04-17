@@ -249,9 +249,10 @@ export const Admin = () => {
             >
                 <Box
                     sx={{
+                        position: "relative",
                         display: "flex",
-                        justifyContent: "space-between",
                         alignItems: "center",
+                        justifyContent: "space-between",
                         mb: 4,
                     }}
                 >
@@ -302,9 +303,12 @@ export const Admin = () => {
                     {/* Título */}
                     <Typography
                         sx={{
+                            position: "absolute",
+                            left: "50%",
+                            transform: "translateX(-50%)",
                             fontFamily: "Playfair Display",
                             fontSize: { xs: "1.8rem", md: "2.2rem" },
-                            ml: -10,
+                            pointerEvents: "none", // 👈 importante
                         }}
                     >
                         Invitados
