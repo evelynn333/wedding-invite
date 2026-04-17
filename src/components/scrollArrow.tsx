@@ -24,23 +24,32 @@ export const ScrollArrow = ({ targetRef }: Props) => {
             style={{
                 cursor: "pointer",
                 outline: "none",
-                WebkitTapHighlightColor: "transparent", // 👈 clave móvil
+                WebkitTapHighlightColor: "transparent",
                 userSelect: "none",
             }}
-            tabIndex={-1} // 👈 evita focus
+            tabIndex={-1}
+
+            // 👇 animación continua
             animate={{ y: [0, 6, 0], opacity: [0.6, 1, 0.6] }}
+
+            // 👇 👈 ESTO ES LO IMPORTANTE
+            whileTap={{
+                scale: 0.8,
+                y: 4,
+            }}
+
             transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
             }}
-
         >
             <Box sx={{ textAlign: "center", mt: 4 }}>
                 <KeyboardArrowDownIcon
                     sx={{
                         fontSize: 26,
                         color: "text.secondary",
+                        pointerEvents: "none",
                     }}
                 />
             </Box>

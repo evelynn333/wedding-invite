@@ -77,7 +77,7 @@ export const Timeline = () => {
                             <Box
                                 sx={{
                                     position: "absolute",
-                                   left: "calc(50% - 90px)",
+                                   left: "calc(50% - 100px)",
                                     top: "50%",
                                     transform: "translateY(-50%)",
                                     width: "40px",
