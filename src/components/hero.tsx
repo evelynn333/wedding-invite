@@ -17,7 +17,7 @@ export const Hero = () => {
             <Typography
                 sx={{
                     fontFamily: "Playfair Display",
-                    fontSize: "1.5rem",
+                    fontSize: "2rem",
                     my: 1,
                     opacity: 0.7,
                 }}

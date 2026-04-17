@@ -304,6 +304,7 @@ export const Admin = () => {
                         sx={{
                             fontFamily: "Playfair Display",
                             fontSize: { xs: "1.8rem", md: "2.2rem" },
+                            ml: -10,
                         }}
                     >
                         Invitados
