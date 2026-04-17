@@ -15,13 +15,16 @@ export const ScrollArrow = ({ targetRef }: Props) => {
 
         const y = target.getBoundingClientRect().top + window.scrollY;
 
-        smoothScrollTo(y - 20, 1700); 
+        smoothScrollTo(y - 20, 1700);
     };
 
     return (
         <motion.div
             onClick={handleClick}
-            style={{ cursor: "pointer" }}
+            style={{
+                cursor: "pointer",
+                outline: "none",
+            }}
             animate={{ y: [0, 6, 0], opacity: [0.6, 1, 0.6] }}
             transition={{
                 duration: 2,

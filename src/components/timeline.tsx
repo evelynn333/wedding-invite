@@ -2,19 +2,31 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 const events = [
-    { time: "13:00", title: "Ceremonia" },
-    { time: "15:00", title: "Cóctel" },
-    { time: "18:00", title: "Banquete" },
-    { time: "21:00", title: "Fiesta" },
+    {
+        time: "13:00",
+        title: "Ceremonia",
+        icon: "./icons/rings.png",
+    },
+    {
+        time: "15:00",
+        title: "Cóctel",
+        icon: "/icons/coctel.png",
+    },
+    {
+        time: "18:00",
+        title: "Banquete",
+        icon: "/icons/comida.png",
+    },
+    {
+        time: "21:00",
+        title: "Fiesta",
+        icon: "/icons/fiesta.png",
+    },
 ];
 
 export const Timeline = () => {
     return (
-        <Box
-            sx={{
-                textAlign: "center",
-            }}
-        >
+        <Box sx={{ textAlign: "center" }}>
             {/* Título */}
             <Typography
                 sx={{
@@ -26,16 +38,27 @@ export const Timeline = () => {
                 Itinerario
             </Typography>
 
-            {/* Línea vertical */}
+            {/* CONTENEDOR GENERAL */}
             <Box
                 sx={{
                     position: "relative",
                     mx: "auto",
-                    width: "2px",
-                    backgroundColor: "divider",
-                    py: 2,
+                    width: "100%",
+                    maxWidth: "500px",
                 }}
             >
+                {/* Línea vertical */}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "2px",
+                        height: "100%",
+                        backgroundColor: "divider",
+                    }}
+                />
+
                 {events.map((event, index) => (
                     <motion.div
                         key={index}
@@ -47,14 +70,43 @@ export const Timeline = () => {
                             sx={{
                                 position: "relative",
                                 mb: 6,
+                                minHeight: "60px",
                             }}
                         >
-                            {/* Punto */}
+                            {/* ICONO IZQUIERDA */}
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                   left: "calc(50% - 90px)",
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                    width: "40px",
+                                    height: "40px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <Box
+                                    component="img"
+                                    src={event.icon}
+                                    alt={event.title}
+                                    sx={{
+                                        width: "80px",
+                                        height: "80px",
+                                        opacity: 0.8,
+                                         mixBlendMode: "multiply",
+                                    }}
+                                />
+                            </Box>
+
+                            {/* PUNTO */}
                             <Box
                                 sx={{
                                     position: "absolute",
                                     left: "50%",
-                                    transform: "translateX(-50%)",
+                                    transform: "translate(-50%, -50%)",
+                                    top: "50%",
                                     width: "10px",
                                     height: "10px",
                                     borderRadius: "50%",
@@ -62,15 +114,14 @@ export const Timeline = () => {
                                 }}
                             />
 
-                            {/* Contenido */}
+                            {/* TEXTO DERECHA */}
                             <Box
                                 sx={{
                                     position: "relative",
-                                    left: { xs: "20px", md: "40px" },
+                                    ml: "60%",
                                     textAlign: "left",
                                 }}
                             >
-                                {/* Hora */}
                                 <Typography
                                     sx={{
                                         fontSize: "0.8rem",
@@ -81,7 +132,6 @@ export const Timeline = () => {
                                     {event.time}
                                 </Typography>
 
-                                {/* Evento */}
                                 <Typography
                                     sx={{
                                         fontFamily: "Playfair Display",

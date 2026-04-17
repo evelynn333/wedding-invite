@@ -120,7 +120,7 @@ export const Admin = () => {
         });
 
         doc.save("invitados.pdf");
-       
+
         setTimeout(() => {
             setDownloading(false);
         }, 1000);
@@ -156,7 +156,7 @@ export const Admin = () => {
 
         checkUser();
         fetchGuests();
-    }, []);
+    }, [navigate]);
 
     const Stat = ({
         label,
